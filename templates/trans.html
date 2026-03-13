@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Transcription and Translation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid #333;
+            text-align: center;
+        }
+        h1 {
+            color: #953553;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #953553;
+            display: block;
+            margin-top: 15px;
+            text-align: left;
+        }
+        select, input[type="submit"], button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+        select:focus, input[type="submit"]:focus, button:focus, textarea:focus {
+            border-color: #0066cc;
+            outline: none;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            box-sizing: border-box;
+            text-align:center;
+        }
+        input[type="submit"], button {
+            background-color: #0066cc;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="button"], button {
+            background-color: #0066cc;
+            color: white;
+            cursor: pointer;
+            float:right;
+            margin:10px;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #005bb5;
+        }
+        #result {
+            background-color: #e7f3e7;
+            border: 1px solid #d4edda;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Speech Transcription and Translation</h1>
+        <form id="speechForm">
+            <label for="language">Choose the initial speaking language:</label>
+            <select id="language">
+                <!-- Options will be populated dynamically with JavaScript -->
+            </select>
+            <button type="button" onclick="startRecording()">Start Recording</button>
+            <textarea id="transcription" placeholder="Speech Transcription will appear here" readonly></textarea>
+            <label for="action">Choose the action:</label>
+            <select id="action" onchange="toggleTargetLanguageAndFetch()">
+                <option value="translate">Translate</option>
+                <option value="transliterate">Transliterate</option>
+            </select>
+            <select id="targetLanguage" style="display: none;">
+                <!-- Options will be populated dynamically with JavaScript -->
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="result" style="display: none;">
+            <!-- Result will appear here -->
+        </div>
+        <input type="button" value="Back"  onclick="window.open(&quot;http://127.0.0.1:8000/&quot;);" />
+    </div>
+
+    <script>
+        // Populate language options dynamically
+        const languageSelect = document.getElementById('language');
+        const targetLanguageSelect = document.getElementById('targetLanguage');
+    
+        const languages = [
+            { code: 'hi', name: 'Hindi' },
+            { code: 'bn', name: 'Bengali' },
+            { code: 'te', name: 'Telugu' },
+            { code: 'mr', name: 'Marathi' },
+            { code: 'ta', name: 'Tamil' },
+            { code: 'ur', name: 'Urdu' },
+            { code: 'gu', name: 'Gujarati' },
+            { code: 'kn', name: 'Kannada' },
+            { code: 'or', name: 'Oriya' },
+            { code: 'ml', name: 'Malayalam' },
+            { code: 'fr', name: 'French' },
+            { code: 'es', name: 'Spanish' },
+            { code: 'de', name: 'German' },
+            { code: 'ru', name: 'Russian' },
+            { code: 'ar', name: 'Arabic' },
+            { code: 'en', name: 'English' }
+        ];
+    
+        languages.forEach(lang => {
+            const option = document.createElement('option');
+            option.value = lang.code;
+            option.textContent = lang.name;
+            languageSelect.appendChild(option);
+        });
+    
+        function toggleTargetLanguageAndFetch() {
+            toggleTargetLanguage();  // Call the function to toggle target language display
+            showTranslationLanguages();  // Call the function to fetch supported languages for translation or transliteration
+        }
+    
+        function toggleTargetLanguage() {
+            const action = document.getElementById('action').value;
+            const targetLanguage = document.getElementById('targetLanguage');
+    
+            if (action === 'transliterate') {
+                targetLanguage.style.display = 'inline-block';
+            } else {
+                targetLanguage.style.display = 'none';
+            }
+        }
+    
+        function startRecording() {
+            const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            recognition.lang = document.getElementById('language').value;
+    
+            recognition.start();
+    
+            recognition.onresult = function (event) {
+                const transcript = event.results[0][0].transcript;
+                console.log('Transcript:', transcript);
+                document.getElementById('transcription').value = transcript;
+            };
+    
+            recognition.onerror = function (event) {
+                console.error('Speech recognition error:', event.error);
+            };
+    
+            recognition.onend = function () {
+                console.log('Speech recognition ended.');
+            };
+        }
+    
+        function showTranslationLanguages() {
+            const targetLanguageSelect = document.getElementById('targetLanguage');
+            const action = document.getElementById('action').value;
+    
+            // Clear existing options
+            targetLanguageSelect.innerHTML = '';
+    
+            // Fetch supported languages for translation or transliteration
+            if (action === 'transliterate') {
+                ['kn', 'hi', 'ml', 'ta', 'te', 'bn', 'gu', 'or', 'en'].forEach(code => {
+                    const lang = languages.find(lang => lang.code === code);
+                    if (lang) {
+                        const option = document.createElement('option');
+                        option.value = lang.code;
+                        option.textContent = lang.name;
+                        targetLanguageSelect.appendChild(option);
+                    }
+                });
+            } else if (action === 'translate') {
+                languages.forEach(lang => {
+                    const option = document.createElement('option');
+                    option.value = lang.code;
+                    option.textContent = lang.name;
+                    targetLanguageSelect.appendChild(option);
+                });
+            }
+    
+            // Show the target language select dropdown
+            targetLanguageSelect.style.display = 'inline-block';
+        }
+    
+        // Update the form submission event listener to handle translation
+        const form = document.getElementById('speechForm');
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+    
+            const language = document.getElementById('language').value;
+            const action = document.getElementById('action').value;
+            const targetLanguage = document.getElementById('targetLanguage').value;
+            const transcription = document.getElementById('transcription').value;
+    
+            // Construct the request body
+            const requestBody = JSON.stringify({
+                language,
+                action,
+                targetLanguage,
+                transcription,
+            });
+    
+            try {
+                // Make the AJAX request using the Fetch API
+                const response = await fetch('/process-speech/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: requestBody
+                });
+    
+                // Check if the request was successful
+                if (response.ok) {
+                    // Parse the JSON response
+                    const result = await response.json();
+    
+                    // Display the result in the result div
+                    const resultDiv = document.getElementById('result');
+                    resultDiv.style.display = 'block';
+                    resultDiv.textContent = JSON.stringify(result, null, 2);
+                } else {
+                    // Handle errors if the request was not successful
+                    console.error('Failed to process speech:', response.status, response.statusText);
+                }
+            } catch (error) {
+                // Handle network errors
+                console.error('Network error:', error.message);
+            }
+        });
+    
+    </script>
+
+    
+      
+</body>
+</html>

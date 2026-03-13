@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Speech Translator and Transliterator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        input[type="button"], button {
+            background-color: #0066cc;
+            color: white;
+            cursor: pointer;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #953553;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-top: 30px;
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 40px;
+        }
+
+        ul li, ol li {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 2px solid #4CAF50;
+            margin-top: 30px;
+        }
+
+        p {
+            line-height: 1.8;
+        }
+
+        .contact ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact li {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        .icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+            color: #4CAF50;
+        }
+
+        .content p, .content ul, .content ol {
+            font-size: 1.1em;
+        }
+
+        .content ul li::before {
+            content: "\2022";
+            color: #4CAF50;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .content ol {
+            counter-reset: li;
+        }
+
+        .content ol li {
+            position: relative;
+            margin-bottom: 10px;
+            padding-left: 30px;
+        }
+
+        .content ol li::before {
+            content: counter(li);
+            counter-increment: li;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            color: #fff;
+            text-align: center;
+            line-height: 25px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>About Speech Recognaization and Language Detection</h1>
+        </header>
+        <section class="content">
+            <h2>Overview</h2>
+            <p>The Speech Translator and Transliterator application is designed to help users convert spoken language into written text, translate it into another language, or transliterate it into a different script. This tool is particularly useful for language learners, travelers, and anyone who needs to communicate across language barriers.</p>
+
+            <h2>Features</h2>
+            <ul>
+                <li><span class="icon">🗣️</span><strong>Speech Transcription:</strong> Convert spoken words into written text in multiple languages.</li>
+                <li><span class="icon">🌐</span><strong>Text Translation:</strong> Translate transcribed text into a different language.</li>
+                <li><span class="icon">🔤</span><strong>Text Transliteration:</strong> Convert text from one script to another, making it readable in a different writing system.</li>
+                <li><span class="icon">🔊</span><strong>Speach-To-Text:</strong> Listen to the translated or transliterated text using a text-to-speech engine.</li>
+            </ul>
+
+            <h2>How It Works</h2>
+            <p>The application operates in several steps:</p>
+            <ol>
+                <li><strong>Select Language:</strong> The user chooses the language they will speak in.</li>
+                <li><strong>Transcribe Speech:</strong> The application listens to the user and converts their speech to text.</li>
+                <li><strong>Choose Action:</strong> The user decides whether to translate or transliterate the transcribed text.</li>
+                <li><strong>Perform Action:</strong>
+                    <ul>
+                        <li>If translating, the user selects the target language, and the text is translated.</li>
+                        <li>If transliterating, the user selects the target script, and the text is converted to that script.</li>
+                    </ul>
+                </li>
+                <li><strong>Text-to-Speech:</strong> The application can read the translated or transliterated text aloud.</li>
+            </ol>
+
+            <h2>Benefits</h2>
+            <ul>
+                <li><span class="icon">📚</span><strong>Language Learning:</strong> Improve language skills by listening and seeing translations and transliterations.</li>
+                <li><span class="icon">✈️</span><strong>Travel:</strong> Communicate more effectively when traveling to different countries.</li>
+                <li><span class="icon">♿</span><strong>Accessibility:</strong> Assist those with speech or reading difficulties by providing spoken and written translations.</li>
+            </ul>
+
+            <h2>Getting Started</h2>
+            <p>To use this application, follow these steps:</p>
+            <ol>
+                <li>Install the required Python libraries: unidecode, speech_recognition, googletrans, indic_transliteration, pyttsx3.</li>
+                <li>Run the main script.</li>
+                <li>Follow the prompts to select languages, speak, and choose actions.</li>
+            </ol>
+
+            <h2>Requirements</h2>
+            <p>Ensure you have the following libraries installed:</p>
+            <ul>
+                <li>unidecode</li>
+                <li>speech_recognition</li>
+                <li>googletrans</li>
+                <li>indic_transliteration</li>
+                <li>pyttsx3</li>
+            </ul>
+
+            <h2>Contact</h2>
+            <p>If you have any questions or need support, please contact us:</p>
+            <div class="contact">
+                <ul>
+                    <li><strong>Name:</strong> Ashrith</li>
+                    <li><strong>Email:</strong> Ashrith@gmail.com</li>
+                    <li><strong>Phone:</strong> 9876543210</li>
+                </ul>
+            </div>
+        </section>
+        <input type="button" value="Back"  onclick="window.open(&quot;http://127.0.0.1:8000/&quot;);" />
+        <footer>
+            <p>2024 Speech Translator and Transliterator</p>
+        </footer>
+    </div>
+</body>
+</html>

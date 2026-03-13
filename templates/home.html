@@ -1,0 +1,90 @@
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'your-stylesheet.css' %}">
+  <script src="https://kit.fontawesome.com/2f4812b960.js" crossorigin="anonymous"></script>
+  <title>Speech Recognition</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+    * {
+      font-family: "poppins", sans-serif;
+    }
+
+    body {
+      background: rgba(57, 57, 57, 0.5) url({% static 'ai3.jpg' %});
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-blend-mode: darken;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .head {
+      position: fixed;
+    }
+
+    .nav-ul a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .nav-ul {
+      display: flex;
+      padding-left: 700px;
+      cursor: pointer;
+    }
+
+    .ul-list {
+      list-style: none;
+      padding-left: 60px;
+    }
+
+    .nav-name {
+      color: #fff;
+      font-size: 24px;
+      margin-left: -20px;
+    }
+
+    .navbar {
+      display: flex;
+      padding-left: 150px;
+      font-size: 21px;
+    }
+
+    .get-btn {
+      margin-top: 400px;
+      margin-left: 650px;
+      width: 180px;
+      height: 60px;
+      border-radius: 360px;
+      border: none;
+      font-weight: bold;
+      background-image: linear-gradient(to left, rgb(26, 126, 228), rgb(230, 19, 111));
+      color: rgba(265, 155, 225, 0.744);
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="head">
+    <nav class="navbar">
+      <p class="nav-name">Tongue Master</p>
+      <ul class="nav-ul">
+        <li class="ul-list"><a href="/about">About</a></li>
+        <li class="ul-list"><a href="/feedback">Feedback</a></li>
+        <li class="ul-list"><a href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="get">
+    <a href="/login"><button class="get-btn">Start Now</button></a>
+  </div>
+</body>
+
+</html>
