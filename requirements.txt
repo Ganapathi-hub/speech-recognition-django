@@ -1,0 +1,36 @@
+from django.contrib import admin
+from .models import Feedback
+from django.apps import AppConfig
+from django.db import models
+from django.contrib.auth.models import User
+from unidecode import unidecode
+import speech_recognition as sr
+from indic_transliteration import sanscript
+import pyttsx3
+from deep_translator import GoogleTranslator
+from django.test import TestCase
+from django.contrib import admin
+from django.urls import path
+from home import views 
+from . import views
+from .views import process_speech
+from django.shortcuts import render,redirect
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.http import HttpResponse
+from django.contrib.auth import authenticate, login 
+from django.shortcuts import redirect
+from django.contrib.auth import logout
+from django.views.decorators.csrf import csrf_protect
+import pyotp 
+from django.conf import settings
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .speech import transcribe_speech, translate_text, transliterate_text
+from django.http import JsonResponse
+from .speech import get_supported_languages
+from .models import Feedback
+import os
+import sys
